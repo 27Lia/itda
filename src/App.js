@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./index.css";
 import logo from "./assets/logo.svg";
+const API_URL =
+  "http://ec2-3-38-91-234.ap-northeast-2.compute.amazonaws.com:3001";
 
 function App() {
   const [note, setCurrentNote] = useState("");
@@ -11,7 +13,7 @@ function App() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await fetch("/api/notes");
+        const res = await fetch(`${API_URL}/api/notes`);
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -36,7 +38,9 @@ function App() {
 
     try {
       const response = await fetch(
-        editNoteId ? `/api/notes/${editNoteId}` : "/api/notes",
+        editNoteId
+          ? `${API_URL}/api/notes/${editNoteId}`
+          : `${API_URL}/api/notes`,
         {
           method: editNoteId ? "PUT" : "POST",
           headers: {
@@ -63,7 +67,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`/api/notes/${id}`, {
+      const response = await fetch(`${API_URL}/api/notes/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
