@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./index.css";
 import logo from "./assets/logo.svg";
-const API_URL =
-  "http://ec2-3-38-91-234.ap-northeast-2.compute.amazonaws.com:3001";
 
 function App() {
   const [note, setCurrentNote] = useState("");
   const [noteList, setNoteList] = useState([]);
   const [editNoteId, setEditNoteId] = useState(null);
   const inputRef = useRef(null);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchNotes = async () => {
